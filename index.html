@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>My first three.js app</title>
+		<style>
+			body { margin: 0; }
+		</style>
+	</head>
+	<body>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r99/three.min.js"></script>
+		<script>
+			const scene = new THREE.Scene();
+			const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+            
+			const renderer = new THREE.WebGLRenderer();
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			document.body.appendChild( renderer.domElement );
+
+			/* Vaariables */
+
+            var t=0;
+			var Alpha =0;
+			var Beta = 0;
+
+			/* Cubos y Materiales */
+			const geometry = new THREE.CubeGeometry( 1, 4, 1 );
+			const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+			const cube = new THREE.Mesh( geometry, material );
+            cube.position.set(0, -0.25, 0);
+			
+
+            const geometry1 = new THREE.CubeGeometry( 1, 4, 1 );
+			const material1 = new THREE.MeshBasicMaterial( { color: 0xfffffff } );
+			const cube1 = new THREE.Mesh( geometry1, material1 );
+            cube1.position.set(0, -2, 0);
+			scene.add( cube1 );
+
+            const cube2 = new THREE.Mesh( geometry1, material1 );
+            cube2. position.set(0, -2, 0);
+
+
+			const geometry2 = new THREE.CubeGeometry( 4, 1, 1 );
+			const material2 = new THREE.MeshBasicMaterial( { color: 0xfffffff } );
+			const cube3 = new THREE.Mesh( geometry2, material2 );
+            cube3. position.set(1.5, -2, 0);
+
+			const cube4 = new THREE.Mesh( geometry1, material1 );
+			cube4.position.set(0, -2, 0);
+
+			const cube5 = new THREE.Mesh( geometry1, material1 );
+            cube5. position.set(0, -2, 0)
+
+
+			const cube6 = new THREE.Mesh( geometry2, material2 );
+            cube6. position.set(1.5, -1, 0)
+
+			const geometry3 = new THREE.CubeGeometry( 2, 2, 1 );
+			const material3 = new THREE.MeshBasicMaterial( { color: 0xFAE9E1 } );
+			const cube7 = new THREE.Mesh( geometry3, material3 );
+            cube7. position.set(0, 0, 0);
+
+			const geometry4 = new THREE.CubeGeometry( 2, 4, 1 );
+			const material4 = new THREE.MeshBasicMaterial( { color: 0xFAE9E1 } );
+			const cube8 = new THREE.Mesh( geometry4, material4 );
+            cube8. position.set(0, 0, 0)
+
+			const cube9 = new THREE.Mesh( geometry1, material1 );
+            cube9. position.set(0, -2, 0)
+			
+			const cube10 = new THREE.Mesh( geometry1, material1 );
+            cube10. position.set(0, -2, 0)
+
+			const cube11 = new THREE.Mesh( geometry1, material1 );
+            cube11. position.set(0, -2, 0)
+
+			const cube12 = new THREE.Mesh( geometry1, material1 );
+            cube12. position.set(0, -2, 0)
+
+			const geometry5 = new THREE.CubeGeometry( 2.5, 2.5, 1 );
+			const material5 = new THREE.MeshBasicMaterial( { color: 0xFAE9E1 } );
+			const cube13 = new THREE.Mesh( geometry5, material5 );
+            cube13. position.set(0, -2, 0)
+
+			
+			/* Pelvis */
+			const Pelvis = new THREE.Group();
+            Pelvis.position.set( 0.0, 0, 0 );
+            Pelvis.add(cube7);
+            scene.add( Pelvis );
+
+			/* Tronco */
+			const Tronco = new THREE.Group();
+            Tronco.position.set( 0.0, 3.5, 0 );
+            Tronco.add(cube8);
+            Pelvis.add( Tronco );
+
+			/* Cabeza */
+			const Cabeza = new THREE.Group();
+			Cabeza.position.set(0.0,6,0);
+			Cabeza.add(cube13);
+			Tronco.add(Cabeza);
+
+			/* Pierna Izquierda */
+            const musloI = new THREE.Group();
+            musloI.position.set( 0.0, -2, 0 );
+            musloI.add( cube1 );
+            Pelvis.add (musloI);
+
+
+            const rodillaI = new THREE.Group();
+            rodillaI.position.set( 0.0, -4, 0 );
+            rodillaI.add(cube2);
+            musloI.add( rodillaI );
+
+/* 			const pieI = new THREE.Group();
+            pieI.position.set( 0, -3, 0 );
+            pieI.add(cube3);
+            rodillaI.add( pieI ); */
+
+			/* Pierna Derecha */
+
+ 			const musloD = new THREE.Group();
+            musloD.position.set( 0, -2, 0 );
+            musloD.add( cube4 );
+            Pelvis.add (musloD);
+
+			const rodillaD = new THREE.Group();
+            rodillaD.position.set( 0.0, -4, 0 );
+            rodillaD.add(cube5);
+            musloD.add( rodillaD );
+            
+/* 			const pieD = new THREE.Group();
+            pieD.position.set( 0, -4, 0 );
+            pieD.add( cube6 );
+            rodillaD.add (pieD); */
+            
+			/* Brazo Derecho */
+
+			const BrazoD = new THREE.Group();
+            BrazoD.position.set( 0, 0, 0.5 );
+            BrazoD.add(cube9);
+            Tronco.add( BrazoD );
+
+			const CodoD = new THREE.Group();
+            CodoD.position.set( 0, -4, 0 );
+            CodoD.add(cube10);
+            BrazoD.add( CodoD ); 
+
+			/* Brazo Izquierdo */
+
+			const BrazoI = new THREE.Group();
+            BrazoI.position.set( 0, 0, 0 );
+            BrazoI.add(cube11);
+            Tronco.add( BrazoI );
+
+			const CodoI = new THREE.Group();
+            CodoI.position.set( 0, -4, 0 );
+            CodoI.add(cube12);
+            BrazoI.add( CodoI ); 
+
+			/* Camara */
+
+			camera.position.z = 20;
+
+			function animate() {
+				requestAnimationFrame( animate );
+                t +=0.1;
+				Alpha =0.01;
+				Beta +=0.02;
+				Pelvis.position.y = Math.sin(t*0.23);
+                musloI.rotation.z = 0.6*Math.cos(t*0.2);
+                rodillaI.rotation.z = 0.6*Math.cos(Alpha*t+Beta)-0.58;
+				/* pieI.rotation.z = Math.sin(t*0.001); */
+				musloD.rotation.z =  -0.6*Math.cos(t*0.2);
+				rodillaD.rotation.z = -0.6*Math.cos(Alpha*t+Beta)-0.58;
+				/* pieD.rotation.z = Math.sin(t*(-0.001)); */
+				BrazoD.rotation.z = 0.6*Math.sin(t*0.2);
+                CodoD.rotation.z = 1*Math.sin(Alpha*t+Beta)+1;
+
+				BrazoI.rotation.z = -0.6*Math.sin(t*0.2);
+                CodoI.rotation.z = -1*Math.sin(Alpha*t+Beta)+1;
+
+				renderer.render( scene, camera );
+			};
+
+			animate();
+		</script>
+	</body>
+</html>
